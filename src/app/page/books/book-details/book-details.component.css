@@ -1,0 +1,24 @@
+.card-img {
+    height: 250px;
+    width: 200px;
+}
+
+
+.card-img > img {
+    height: 250px;
+    width: 200px;
+}
+
+pre {
+    background-color: #fff;
+    border-radius: 4px;
+    display: block;
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 13px;
+    line-height: 1.42857;
+    margin: 10px 0;
+    padding: 9.5px;
+    width: 100%;
+    height: 300px;
+    white-space: unset;
+}

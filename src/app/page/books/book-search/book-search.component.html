@@ -1,0 +1,55 @@
+
+
+
+<h1 class="text-center m-2">Search Books</h1>
+
+<div class="container d-flex justify-content-center mb-2">
+    <div class="col-md-8">
+      <div class="form shadow">
+        <div class="input">
+          <input class="input2"  #searchQuery  type="search" aria-label="Buscar" placeholder="Search Book" autofocus>
+          <input type="hidden" name="as_sitesearch" value="norfipc.com">
+        </div>
+        <button class="boton zoom" aria-label="Buscar" type="submit"><span class="svg">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+              </path>
+            </svg></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="(books$ | async) == null" class="d-flex justify-content-center align-items-center mt-5">
+    <p>Search for books by title, or author.</p>
+  </div>
+
+<div *ngIf="loading$ | async" class="container d-flex justify-content-center mt-5">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="container" *ngIf="books$ | async as data">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-3">
+    <div *ngFor="let book of data.items " (click)="getDetails(book.id)">
+        <mat-card class="example-card shadow overflow-hidden">
+            <mat-card-subtitle class="p-2 m-1 h-100 w-100">
+                <div class="text-center">
+                    <span><strong> {{ book.volumeInfo?.title }} </strong></span>
+                </div>
+                <div class="p-2">
+                    <p class="m-0 p-0"><strong>Authors:</strong></p>
+                    <ul class="m-0 p-0">
+                        <li  *ngFor="let author of book.volumeInfo?.authors | slice:0:3, let index">{{ author }}</li>
+                        {{ book.volumeInfo?.authors?.length > 3 ? '...and more' : '' }}
+                    </ul>
+                </div>
+            </mat-card-subtitle>
+        
+            <img mat-card-md-image src="{{ book.volumeInfo?.imageLinks?.thumbnail || 'assets/img/book.jpg' }}">
+        </mat-card>
+    </div>
+
+  </div>
+
+</div>

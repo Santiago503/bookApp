@@ -1,0 +1,28 @@
+<div *ngIf="loading$ | async" class="container d-flex justify-content-center mt-5">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="book$ | async as book">
+    <div class="row">
+        <div class="col-12 col-md-2 card-img flex-shrink-0">
+            <img [src]="book?.volumeInfo?.imageLinks?.thumbnail || 'assets/img/book.jpg'" alt="book image" />
+        </div>
+        <div class="col-12 col-md-8 p-2 pl-6 flex-grow-1 ms-3">
+            <h1>{{ book.volumeInfo.title }}</h1>
+            <p><strong>Published Date:</strong> {{ book.volumeInfo.publishedDate }}</p>
+            <p><strong>Publisher:</strong> {{ book.volumeInfo.publisher }}</p>
+            <p><strong>Authors:</strong> </p>
+            <ul class="m-0 pl-6">
+                <li  *ngFor="let author of book.volumeInfo?.authors | slice:0:3, let index">{{ author }}</li>
+                {{ book.volumeInfo?.authors?.length > 3 ? '...and more' : '' }}
+            </ul>
+        </div>
+    </div>
+
+    <div class="border-2 p-2 border-primary mt-2">
+        <strong *ngIf="book.volumeInfo.description"> Description</strong>
+       <pre>
+        {{ book.volumeInfo.description }}
+       </pre>
+    </div>
+</div>
